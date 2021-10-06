@@ -1,26 +1,40 @@
 <template>
   <footer>
     <div class="container">
-      <div class="footer_social">
-        <router-link class="footer-logo" :to="{name:'Home'}">VueBlogs</router-link>
-        <div>
-          <instagram class="social-icons"/>
-          <linkedin class="social-icons"/>
-          <github class="social-icons"/>
+      <div class="footer-left">
+        <div class="footer_text">
+          <div class="footer__logo">
+            <router-link class="footer-logo" :to="{name:'Home'}">VueBlogs</router-link>
+          </div>
+          <div class="footer-links">
+            <ul class="social-icons-list">
+              <li><a href="#">
+                <linkedin class="social-icons"/>
+              </a></li>
+              <li><a href="#">
+                <github class="social-icons"/>
+              </a></li>
+              <li><a href="#">
+                <instagram class="social-icons"/>
+              </a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__social_icons">
+          <ul class="footer-nav-list">
+            <li class="list-item">
+              <router-link class="nav-item" :to="{name:'Home'}">Home</router-link>
+            </li>
+            <li class="list-item">
+              <router-link class="nav-item" :to="{name:'Home'}">Blogs</router-link>
+            </li>
+            <li class="list-item">
+              <router-link class="nav-item" :to="{name:'Home'}">Login/Register</router-link>
+            </li>
+          </ul>
         </div>
       </div>
-      <ul class="footer-nav-list">
-        <li class="list-item">
-          <router-link class="nav-item" :to="{name:'Home'}">Home</router-link>
-        </li>
-        <li class="list-item">
-          <router-link class="nav-item" :to="{name:'Home'}">Blogs</router-link>
-        </li>
-        <li class="list-item">
-          <router-link class="nav-item" :to="{name:'Home'}">Login/Register</router-link>
-        </li>
-      </ul>
-      <div class="copyright">
+      <div class="footer-right">
         <p>Copyright 2021 All Rights Reserved</p>
       </div>
     </div>
@@ -48,47 +62,85 @@ footer {
   background-color: var(--darkGrey);
   padding: 1em;
 }
-.footer-logo{
-  font-size: var(--fontBig);
+
+.footer-logo {
+  font-size: var(--fontMed);
 }
-footer,.footer-logo,.nav-item{
+
+footer, .footer-logo, .nav-item {
   color: white;
 }
+
 .social-icons {
   width: 25px;
-  margin: 1em;
+  color: white;
 }
-.footer_social{
+
+.container {
   display: flex;
   flex-direction: column;
-  gap: 1em;
   align-items: center;
-  padding: 1em;
+  gap: 1em;
+  padding: 3em 0;
+}
+.container > *, .footer-left> *{
+  flex-basis: 100%;
+}
+
+.footer-left{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+.footer_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
 }
 .footer-nav-list{
   display: flex;
   gap: 1em;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 1em;
 }
-.copyright{
+.social-icons-list{
+  display: flex;
+  gap: 2em;
+}
+.footer-right > p{
+  margin: 0;
   text-align: center;
 }
+
 @media all and (min-width: 760px) {
-  .footer_social{
-    flex-basis: 35%;
+  .container {
+    flex-direction: row;
+    align-items: end;
   }
-  .container{
-    display: flex;
-    align-items: center;
+  .footer-left{
+    flex-direction: row;
+    align-items: normal;
   }
   .footer-nav-list{
-    flex-basis: 35%;
+    flex-direction: column;
   }
-  .copyright{
-    margin-left: auto;
-    flex-basis: 25%;
+  .footer-right{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-top: auto;
+  }
+  .footer-logo {
+    font-size: var(--fontBig);
+  }
+  .footer_text{
+    align-items: flex-start;
+  }
+  .footer-links{
+    margin-top: auto;
   }
 }
 </style>

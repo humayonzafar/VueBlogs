@@ -91,7 +91,7 @@ header {
 }
 
 .logo {
-  font-size: 2rem;
+  font-size: var(--fontMed);
   font-weight: 800;
   color: black;
 }
@@ -175,6 +175,9 @@ header {
   }
   .nav-item {
     color: black;
+  }
+  .logo{
+    font-size: var(--fontBig);
   }
 }
 </style>
