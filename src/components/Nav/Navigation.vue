@@ -67,7 +67,6 @@ export default {
       this.mobileMenuOpen = !this.mobileMenuOpen;
     },
     closeNavBar(e) {
-      console.log(this.$el,e.target);
       if (!this.$el.contains(e.target)) {
         this.mobileMenuOpen= false;
       }
