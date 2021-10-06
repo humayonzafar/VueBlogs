@@ -1,4 +1,4 @@
-# fireblogs
+# vueblogs
 
 ## Project setup
 ```

@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --maxWidth: 1440px;
+    --mobWidth: 660px;
+    --white: #fff;
+    --lightGreen: #1eb8b8;
+    --lightGrey: #eee;
+    --medGrey: #353535;
+    --darkGrey: #1c1c1c;
+    --fontSuperBig: 2.5rem;
+    --fontBig: 1.5rem;
+    --fontMed: 1.2rem;
+    --fontSmall: 1rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Quicksand", sans-serif;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+a:hover{
+    color: var(--lightGreen);
+    transition: .5s color ease;
+}
+.app {
+    display: flex;
+    flex-direction: column;
+    /*min-height: 100vh;*/
+}
+
+.container {
+    width: 80%;
+    max-width: var(--maxWidth);
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+ul, .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+}
+
+.nav-item-light {
+    color: #fff;
+}
+
+.d-none{
+    display: none;
+}
+
+.overLay{
+    background: lightgray;
+}
