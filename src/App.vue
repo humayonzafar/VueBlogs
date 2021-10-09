@@ -1,9 +1,9 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <Navigation />
+      <Navigation v-if="navigation" />
       <router-view />
-      <Footer />
+      <Footer v-if="navigation" />
     </div>
   </div>
 </template>
@@ -19,12 +19,20 @@ export default {
     Navigation
   },
   data() {
-    return {};
+    return {
+      navigation : false
+    };
   },
-  created() {},
   mounted() {},
   methods: {},
-  watch: {},
+  watch: {
+    $route:{
+      immediate: true,
+      handler(route) {
+        this.navigation = (route.name==null) ? false:  !['Login', 'Register', 'ForgotPassword'].includes(route.name);
+      }
+    }
+  },
 };
 </script>
 

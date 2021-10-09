@@ -15,7 +15,7 @@
           <router-link class="nav-item" :to="{name:'Home'}">Create Post</router-link>
         </li>
         <li class="list-item">
-          <router-link class="nav-item" :to="{name:'Home'}">Login/Register</router-link>
+          <router-link class="nav-item" :to="{name:'Login'}">Login/Register</router-link>
         </li>
       </ul>
       <menu-icon class="bars-regular" @click="toggleMenu"/>
@@ -29,13 +29,13 @@
           <router-link class="nav-item" :to="{name:'Home'}">Home</router-link>
         </li>
         <li class="list-item">
-          <router-link class="nav-item" :to="{name:'Home'}">Blogs</router-link>
+          <router-link class="nav-item" :to="{name:'Blogs'}">Blogs</router-link>
         </li>
         <li class="list-item">
           <router-link class="nav-item" :to="{name:'Home'}">Create Post</router-link>
         </li>
         <li class="list-item">
-          <router-link class="nav-item" :to="{name:'Home'}">Login/Register</router-link>
+          <router-link class="nav-item" :to="{name:'Login'}">Login/Register</router-link>
         </li>
       </ul>
     </transition>

@@ -62,6 +62,9 @@ export default {
 .blog-wrapper:nth-child(even) > .blog-photo {
   order: 1;
 }
+.blog-wrapper:nth-child(1) h2{
+  color: white;
+}
 
 .blog-photo {
   order: 1;

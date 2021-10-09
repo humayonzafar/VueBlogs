@@ -26,16 +26,16 @@
               <router-link class="nav-item" :to="{name:'Home'}">Home</router-link>
             </li>
             <li class="list-item">
-              <router-link class="nav-item" :to="{name:'Home'}">Blogs</router-link>
+              <router-link class="nav-item" :to="{name:'Blogs'}">Blogs</router-link>
             </li>
             <li class="list-item">
-              <router-link class="nav-item" :to="{name:'Home'}">Login/Register</router-link>
+              <router-link class="nav-item" :to="{name:'Login'}">Login/Register</router-link>
             </li>
           </ul>
         </div>
       </div>
       <div class="footer-right">
-        <p>Copyright 2021 All Rights Reserved</p>
+        <p>&copy; {{ date }} All Rights Reserved</p>
       </div>
     </div>
   </footer>
@@ -52,6 +52,11 @@ export default {
     Instagram,
     Linkedin,
     Github
+  },
+  data(){
+    return {
+      date: new Date().getFullYear()
+    }
   }
 }
 </script>

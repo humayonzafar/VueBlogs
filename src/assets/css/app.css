@@ -30,10 +30,10 @@ img {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
 }
-a:hover{
-    color: var(--lightGreen);
+a:hover, button:hover{
+    color: var(--lightGreen) !important;
     transition: .5s color ease;
 }
 .app {
@@ -41,6 +41,7 @@ a:hover{
     flex-direction: column;
     min-height: 100vh;
     min-width: 200px;
+    justify-content: space-between;
 }
 
 .container {
@@ -98,6 +99,9 @@ ul, .nav-list {
     grid-template-columns: 1fr;
 }
 
+.overflow-hidden{
+    overflow: hidden;
+}
 
 @media all and (min-width: 550px) {
     .blog-cards{
@@ -120,5 +124,138 @@ ul, .nav-list {
 @media all and (min-width: 1200px) {
     .blog-cards{
         grid-template-columns: repeat(4,1fr);
+    }
+}
+
+
+/* styles for login signup and forogt password*/
+.form-wrap {
+    display: flex;
+    overflow: hidden;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.login-register {
+    margin-bottom: 8px;
+}
+
+label{
+    display: block;
+    margin-bottom: 8px;
+}
+form {
+    padding: 0 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--darkGrey);
+    margin: 16px 0 16px 0;
+}
+
+.inputs {
+    width: 100%;
+    max-width: 350px;
+    margin-top: 8px;
+}
+
+.input {
+    position: relative;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    border: none;
+    background-color: #f2f7f6 !important;
+    padding: 4px 4px 4px 40px;
+    height: 50px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.icon {
+    width: 20px;
+    position: absolute;
+    left: 9px;
+    top: 44px;
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    font-size: 16px;
+    border-bottom: 1px solid transparent;
+    transition: 0.5s ease all;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.forgot-password:hover {
+    border-color: var(--darkGrey);
+}
+button {
+    transition: all .5s ease;
+    cursor: pointer;
+    margin-top: 24px;
+    padding: 12px 24px;
+    background-color: #303030;
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    text-transform: uppercase;
+}
+.router-link{
+    text-decoration: underline !important;
+    color: black;
+}
+.angle{
+    position: absolute;
+    background-color: #fff;
+    transform: rotate(3deg);
+    width: 60px;
+    right: -30px;
+    height: 101%;
+}
+.background{
+    display: none;
+    flex: 2;
+    background-size: cover;
+    background-image: url("../../assets/background.png");
+    width: 100%;
+    height: 100%;
+}
+@media all and (min-width: 900px) {
+    .form-wrap {
+        width: 100%;
+    }
+
+    form {
+        padding: 0 50px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+    .angle{
+        display: initial;
+    }
+    .background{
+        display: initial;
     }
 }
