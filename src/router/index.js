@@ -1,15 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import('../views//Home'),
+    meta:{title:'Home'}
   },
+  {
+    path: "/blogs",
+    name: "Blogs",
+    component: () => import('../views//Blogs'),
+    meta:{title:'Blogs'}
+  }
 ];
 
 const router = new VueRouter({
@@ -17,5 +22,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
+router.beforeEach((to,from,next)=>{
+  document.title = `${to.meta.title} | VueBlog` ?? 'VueBlog';
+  console.log(from,'from');
+  next();
+});
 export default router;

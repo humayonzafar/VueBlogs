@@ -39,7 +39,7 @@ a:hover{
 .app {
     display: flex;
     flex-direction: column;
-    /*min-height: 100vh;*/
+    min-height: 100vh;
     min-width: 200px;
 }
 
@@ -58,7 +58,16 @@ ul, .nav-list {
     padding: 0;
     margin: 0;
 }
+.arrow {
+    width: 12px;
+    margin-top: 3px;
+    margin-left: 0.6rem;
+    fill: black;
+}
 
+.arrow-light {
+    fill: white;
+}
 .nav-item {
     cursor: pointer;
     text-decoration: none;
@@ -76,4 +85,40 @@ ul, .nav-list {
 
 .overLay{
     background: lightgray;
+}
+
+.blog-card-wrap{
+    position: relative;
+    padding: 4rem 1rem;
+    background-color: white;
+}
+.blog-cards{
+    display: grid;
+    gap: 2em;
+    grid-template-columns: 1fr;
+}
+
+
+@media all and (min-width: 550px) {
+    .blog-cards{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+@media all and (min-width: 760px) {
+    .blog-card-wrap{
+        padding: 4.5rem 1rem;
+    }
+    .blog-cards{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+@media all and (min-width: 900px) {
+    .blog-cards{
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+@media all and (min-width: 1200px) {
+    .blog-cards{
+        grid-template-columns: repeat(4,1fr);
+    }
 }

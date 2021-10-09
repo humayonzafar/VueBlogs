@@ -9,7 +9,7 @@
           <router-link class="nav-item" :to="{name:'Home'}">Home</router-link>
         </li>
         <li class="list-item">
-          <router-link class="nav-item" :to="{name:'Home'}">Blogs</router-link>
+          <router-link class="nav-item" :to="{name:'Blogs'}">Blogs</router-link>
         </li>
         <li class="list-item">
           <router-link class="nav-item" :to="{name:'Home'}">Create Post</router-link>
