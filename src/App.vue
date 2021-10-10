@@ -1,17 +1,21 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <Navigation v-if="navigation" />
-      <router-view />
-      <Footer v-if="navigation" />
+      <Navigation v-if="navigation"/>
+      <router-view/>
+      <Footer v-if="navigation"/>
     </div>
   </div>
 </template>
 
 <script>
 //components
+import {mapActions} from 'vuex';
 import Navigation from "@/components/Nav/Navigation";
 import Footer from "@/components/Footer/Footer"
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 export default {
   name: "app",
   components: {
@@ -20,16 +24,25 @@ export default {
   },
   data() {
     return {
-      navigation : false
+      navigation: false
     };
   },
-  mounted() {},
-  methods: {},
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.actionUpdateUser(user);
+      if (user) {
+        this.actionGetCurrentUser();
+      }
+    });
+  },
+  methods: {
+    ...mapActions(['actionUpdateUser', 'actionGetCurrentUser'])
+  },
   watch: {
-    $route:{
+    $route: {
       immediate: true,
       handler(route) {
-        this.navigation = (route.name==null) ? false:  !['Login', 'Register', 'ForgotPassword'].includes(route.name);
+        this.navigation = (route.name == null) ? false : !['Login', 'Register', 'ForgotPassword'].includes(route.name);
       }
     }
   },

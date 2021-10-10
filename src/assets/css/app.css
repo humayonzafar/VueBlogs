@@ -36,6 +36,15 @@ a:hover, button:hover{
     color: var(--lightGreen) !important;
     transition: .5s color ease;
 }
+.input-error{
+    border: 1px solid red;
+}
+.input-error-message{
+    color: red;
+    margin: 10px 0;
+    display: inline-block;
+    text-transform: capitalize;
+}
 .app {
     display: flex;
     flex-direction: column;
@@ -53,7 +62,11 @@ a:hover, button:hover{
 .text-center {
     text-align: center;
 }
-
+.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: crosshair;
+}
 ul, .nav-list {
     list-style: none;
     padding: 0;
@@ -103,6 +116,15 @@ ul, .nav-list {
     overflow: hidden;
 }
 
+.success-text{
+    color: green;
+    font-weight: 500;
+}
+
+.error-text{
+    color: red;
+    font-weight: 500;
+}
 @media all and (min-width: 550px) {
     .blog-cards{
         grid-template-columns: repeat(2,1fr);
@@ -174,6 +196,7 @@ h2 {
 .input {
     position: relative;
     margin-bottom: 8px;
+    display: block;
 }
 
 input {
@@ -189,14 +212,14 @@ input:focus {
 }
 
 .icon {
-    width: 20px;
+    width: 1rem;
     position: absolute;
-    left: 9px;
-    top: 44px;
+    left: 12px;
+    top: 45px;
 }
 
 .forgot-password {
-    text-decoration: none;
+    text-decoration: underline !important;
     color: black;
     cursor: pointer;
     font-size: 16px;
@@ -206,9 +229,6 @@ input:focus {
     margin-bottom: 8px;
 }
 
-.forgot-password:hover {
-    border-color: var(--darkGrey);
-}
 button {
     transition: all .5s ease;
     cursor: pointer;
@@ -231,6 +251,7 @@ button {
     width: 60px;
     right: -30px;
     height: 101%;
+    display: none;
 }
 .background{
     display: none;
@@ -238,6 +259,11 @@ button {
     background-size: cover;
     background-image: url("../../assets/background.png");
     width: 100%;
+    height: 100%;
+}
+span.auth-form {
+    flex-basis: 40%;
+    display: block;
     height: 100%;
 }
 @media all and (min-width: 900px) {

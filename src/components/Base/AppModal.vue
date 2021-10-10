@@ -1,8 +1,7 @@
 <template>
   <div class="modal-wrapper" v-show="showModal"> <!-- overflow-hidden -->
-    <div class="modal-content">
+    <div class="modal-content" :class="classes">
       <p v-if="message">{{message}}</p>
-
       <button @click="close">Close</button>
     </div>
   </div>
@@ -19,6 +18,9 @@ export default {
     message: {
       type: String,
     },
+    classes:{
+      type: String
+    }
   },
   watch: {
     value: {

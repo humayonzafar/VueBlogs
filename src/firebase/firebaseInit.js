@@ -1,24 +1,17 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import "firebase/firestore";
+import firebase from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: process.env.FIREBASE_AUTH_DOAMIN,
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    storageBucket: process.env.firebase_storage_bucket,
-    messagingSenderId: process.env.firebase_messaging_sender_id,
-    appId: process.env.FIREBASE_APP_ID,
-    measurementId: process.env.FIREBASE_MEASURMENT_ID //measurementId is optional
+    apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+    authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOAMIN,
+    projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.VUE_APP_FIREBASE_APP_ID,
+    measurementId: process.env.VUE_APP_FIREBASE_MEASURMENT_ID //measurementId is optional
 };
-
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const timestamp = app.firestore.FieldValue.serverTimestamp;
-
-export {timestamp};
-export default app.firestore;
+firebase.initializeApp(firebaseConfig);
