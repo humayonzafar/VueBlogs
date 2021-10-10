@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <Navigation v-if="navigation"/>
+      <Navigation :showLinks="navigation"/>
       <router-view/>
       <Footer v-if="navigation"/>
     </div>

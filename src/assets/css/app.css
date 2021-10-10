@@ -32,19 +32,23 @@ img {
 a {
     text-decoration: none !important;
 }
-a:hover, button:hover{
+
+a:hover, button:hover {
     color: var(--lightGreen) !important;
     transition: .5s color ease;
 }
-.input-error{
+
+.input-error {
     border: 1px solid red;
 }
-.input-error-message{
+
+.input-error-message {
     color: red;
     margin: 10px 0;
     display: inline-block;
     text-transform: capitalize;
 }
+
 .app {
     display: flex;
     flex-direction: column;
@@ -62,16 +66,19 @@ a:hover, button:hover{
 .text-center {
     text-align: center;
 }
-.disabled{
+
+.disabled {
     opacity: 0.5;
     pointer-events: none;
     cursor: crosshair;
 }
+
 ul, .nav-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
+
 .arrow {
     width: 12px;
     margin-top: 3px;
@@ -82,6 +89,7 @@ ul, .nav-list {
 .arrow-light {
     fill: white;
 }
+
 .nav-item {
     cursor: pointer;
     text-decoration: none;
@@ -93,59 +101,65 @@ ul, .nav-list {
     color: #fff;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
 
-.overLay{
+.overLay {
     background: lightgray;
 }
 
-.blog-card-wrap{
+.blog-card-wrap {
     position: relative;
     padding: 4rem 1rem;
     background-color: white;
 }
-.blog-cards{
+
+.blog-cards {
     display: grid;
     gap: 2em;
     grid-template-columns: 1fr;
 }
 
-.overflow-hidden{
+.overflow-hidden {
     overflow: hidden;
 }
 
-.success-text{
+.success-text {
     color: green;
     font-weight: 500;
 }
 
-.error-text{
+.error-text {
     color: red;
     font-weight: 500;
 }
+
 @media all and (min-width: 550px) {
-    .blog-cards{
-        grid-template-columns: repeat(2,1fr);
+    .blog-cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
+
 @media all and (min-width: 760px) {
-    .blog-card-wrap{
+    .blog-card-wrap {
         padding: 4.5rem 1rem;
     }
-    .blog-cards{
-        grid-template-columns: repeat(2,1fr);
+
+    .blog-cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
+
 @media all and (min-width: 900px) {
-    .blog-cards{
-        grid-template-columns: repeat(3,1fr);
+    .blog-cards {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
+
 @media all and (min-width: 1200px) {
-    .blog-cards{
-        grid-template-columns: repeat(4,1fr);
+    .blog-cards {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
@@ -165,10 +179,11 @@ ul, .nav-list {
     margin-bottom: 8px;
 }
 
-label{
+label {
     display: block;
     margin-bottom: 8px;
 }
+
 form {
     padding: 0 10px;
     position: relative;
@@ -240,11 +255,13 @@ button {
     border: none;
     text-transform: uppercase;
 }
-.router-link{
+
+.router-link {
     text-decoration: underline !important;
     color: black;
 }
-.angle{
+
+.angle {
     position: absolute;
     background-color: #fff;
     transform: rotate(3deg);
@@ -253,7 +270,8 @@ button {
     height: 101%;
     display: none;
 }
-.background{
+
+.background {
     display: none;
     flex: 2;
     background-size: cover;
@@ -261,11 +279,14 @@ button {
     width: 100%;
     height: 100%;
 }
+
 span.auth-form {
-    flex-basis: 40%;
+    /*flex-basis: 40%;*/
+    flex-basis: 100%;
     display: block;
     height: 100%;
 }
+
 @media all and (min-width: 900px) {
     .form-wrap {
         width: 100%;
@@ -278,10 +299,16 @@ span.auth-form {
     h2 {
         font-size: 40px;
     }
-    .angle{
+
+    .angle {
         display: initial;
     }
-    .background{
+
+    .background {
         display: initial;
+    }
+
+    span.auth-form {
+        flex-basis: 40%;
     }
 }

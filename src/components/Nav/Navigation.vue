@@ -4,7 +4,7 @@
       <div>
         <router-link class="logo" :to="{name:'Home'}">VueBlogs</router-link>
       </div>
-      <ul class="nav-list">
+      <ul class="nav-list" v-if="showLinks">
         <li class="list-item">
           <router-link class="nav-item" :to="{name:'Home'}">Home</router-link>
         </li>
@@ -18,9 +18,9 @@
           <router-link class="nav-item" :to="{name:'Login'}">Login/Register</router-link>
         </li>
       </ul>
-      <menu-icon class="bars-regular" @click="toggleMenu"/>
+      <menu-icon v-if="showLinks" class="bars-regular" @click="toggleMenu"/>
     </nav>
-    <transition name="mobile-nav">
+    <transition name="mobile-nav" v-if="showLinks">
       <ul class="mobile-nav-list" v-if="mobileMenuOpen">
         <li class="list-item list-item__X">
           <span @click="toggleMenu">X</span>
@@ -48,6 +48,12 @@ import MenuIcon from "../../assets/Icons/bars-regular.svg";
 
 export default {
   name: "Navigation",
+  props:{
+    showLinks:{
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       mobileMenuOpen: false,
