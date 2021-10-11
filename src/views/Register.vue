@@ -131,7 +131,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped src="../assets/css/auth/auth.css">
 .register h2 {
   max-width: 350px;
 }

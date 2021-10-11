@@ -28,7 +28,7 @@
             <li class="list-item">
               <router-link class="nav-item" :to="{name:'Blogs'}">Blogs</router-link>
             </li>
-            <li class="list-item">
+            <li v-if="!getUser" class="list-item" >
               <router-link class="nav-item" :to="{name:'Login'}">Login/Register</router-link>
             </li>
           </ul>
@@ -45,7 +45,7 @@
 import Instagram from '../../assets/Icons/instagram-brands.svg';
 import Linkedin from '../../assets/Icons/linkedin-brands.svg';
 import Github from '../../assets/Icons/iconmonstr-github-1.svg';
-
+import {mapGetters} from 'vuex';
 export default {
   name: "Footer.vue",
   components: {
@@ -57,6 +57,9 @@ export default {
     return {
       date: new Date().getFullYear()
     }
+  },
+  computed:{
+    ...mapGetters(['getUser'])
   }
 }
 </script>

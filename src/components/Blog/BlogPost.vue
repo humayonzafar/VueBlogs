@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-wrapper no-user">
+  <div class="blog-wrapper" :class="{'no-user':!getUser}">
     <div class="blog-content">
       <div class="blog-content-cont">
         <h2 v-if="isWelcomeScreen">{{ post.title }}</h2>
@@ -25,7 +25,7 @@
 
 <script>
 import Arrow from "../../assets/Icons/arrow-right-light.svg";
-
+import {mapGetters} from 'vuex';
 export default {
   name: "BlogPost",
   components: {Arrow},
@@ -35,6 +35,9 @@ export default {
       isWelcomeScreen: this.post.welcomeScreen ?? false
     }
   },
+  computed:{
+    ...mapGetters(['getUser'])
+  }
 }
 </script>
 
@@ -61,9 +64,6 @@ export default {
 
 .blog-wrapper:nth-child(even) > .blog-photo {
   order: 1;
-}
-.blog-wrapper:nth-child(1) h2{
-  color: white;
 }
 
 .blog-photo {

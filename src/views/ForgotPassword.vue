@@ -80,7 +80,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped src="../assets/css/auth/auth.css">
 .reset-password {
   position: relative;
 }

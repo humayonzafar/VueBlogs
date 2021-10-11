@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <blog-post :post="welcomeScreen" />
+    <blog-post v-if="!getUser" :post="welcomeScreen" />
     <blog-post :post="post" v-for="(post,index) in sampleBlogPost" :key="index"/>
     <div class="blog-card-wrap">
       <div class="container">
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="updates">
+    <div v-if="!getUser" class="updates">
       <div class="container updates-container">
         <h2>Never miss a post. Register your free account today.</h2>
         <router-link class="router-button" to="#">Register for FireBlogs <arrow class="arrow"/></router-link>
@@ -50,7 +50,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getSampleBlogCards']),
+    ...mapGetters(['getSampleBlogCards','getUser']),
     sampleBlogCards () {
       return this.getSampleBlogCards;
     }
