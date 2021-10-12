@@ -40,6 +40,11 @@ export default new Vuex.Store({
         mutateProfileInitials(state) {
             state.profile.initials = state.profile.first_name.match(/(\b\S)?/g).join("") +   //get first and last name initials
                 state.profile.last_name.match(/(\b\S)?/g).join("");
+        },
+        mutateUserProfile(state,payload){
+            Object.keys(payload).forEach(key => {
+                state.profile[key] = payload[key];
+            });
         }
     },
     getters: {
@@ -60,7 +65,17 @@ export default new Vuex.Store({
         },
         actionUpdateUser({commit}, data) {
             commit('mutateUser', data);
-        }
+        },
+        async actionUpdateProfile({commit,getters},payload) {
+            const dataBase = await db.collection('users').doc(getters.getProfile.id);
+            await dataBase.update({
+                first_name: getters.getProfile.first_name,
+                last_name: getters.getProfile.last_name,
+                user_name: getters.getProfile.user_name,
+            });
+            commit('mutateUserProfile', payload);
+            commit('mutateProfileInitials');
+        },
     },
     modules: {}
 })

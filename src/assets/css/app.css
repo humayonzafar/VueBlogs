@@ -32,7 +32,17 @@ img {
 a {
     text-decoration: none !important;
 }
-
+button{
+    transition: all .5s ease;
+    cursor: pointer;
+    margin-top: 24px;
+    padding: 12px 24px;
+    background-color: var(--darkGrey);
+    color: white;
+    border-radius: 20px;
+    border: none;
+    text-transform: uppercase;
+}
 a:hover, button:hover {
     color: var(--lightGreen) !important;
     transition: .5s color ease;

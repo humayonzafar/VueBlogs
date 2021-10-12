@@ -33,6 +33,18 @@ const routes = [
         component: () => import('../views//ForgotPassword'),
         meta: {title: 'Forgot Password'}
     },
+    {
+        path: "/profile",
+        name: "Profile",
+        component: () => import('../views//Profile'),
+        meta: {title: 'Profile'}
+    },
+    {
+        path: "/admin",
+        name: "Admin",
+        component: () => import('../views//Admin'),
+        meta: {title: 'Admin'}
+    },
 ];
 
 const router = new VueRouter({

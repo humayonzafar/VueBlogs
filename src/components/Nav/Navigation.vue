@@ -31,13 +31,13 @@
               </div>
               <div class="options">
                 <div class="option">
-                  <router-link class="option" to="#">
+                  <router-link class="option" :to="{name:'Profile'}">
                     <user-icon class="icon"/>
                     <p>Profile</p>
                   </router-link>
                 </div>
                 <div class="option">
-                  <router-link class="option" to="#">
+                  <router-link class="option" :to="{name:'Admin'}">
                     <admin-icon class="icon"/>
                     <p>Admin</p>
                   </router-link>
@@ -134,7 +134,6 @@ export default {
       }
     },
     closeProfileMenu(e) {
-      console.log(this.$el,e.target);
       if (!this.$el.contains(e.target)) {
         this.showProfileMenu = false;
       }
