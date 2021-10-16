@@ -1,6 +1,6 @@
 <template>
   <div class="app-wrapper">
-    <div class="app">
+    <div class="app" v-if="getPostLoaded">
       <Navigation :showLinks="navigation"/>
       <router-view/>
       <Footer v-if="navigation"/>
@@ -10,7 +10,7 @@
 
 <script>
 //components
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import Navigation from "@/components/Nav/Navigation";
 import Footer from "@/components/Footer/Footer"
 import firebase from 'firebase/app';
@@ -27,6 +27,9 @@ export default {
       navigation: false
     };
   },
+  computed:{
+    ...mapGetters(['getPostLoaded']),
+  },
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       this.actionUpdateUser(user);
@@ -34,9 +37,10 @@ export default {
         this.actionGetCurrentUser();
       }
     });
+    this.actionGetPost();
   },
   methods: {
-    ...mapActions(['actionUpdateUser', 'actionGetCurrentUser'])
+    ...mapActions(['actionUpdateUser', 'actionGetCurrentUser','actionGetPost'])
   },
   watch: {
     $route: {

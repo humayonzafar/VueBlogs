@@ -3,14 +3,14 @@
     <div class="blog-content">
       <div class="blog-content-cont">
         <h2 v-if="isWelcomeScreen">{{ post.title }}</h2>
-        <h2 v-else>{{ post.title }}</h2>
+        <h2 v-else>{{ post.blogTitle }}</h2>
         <p v-if="isWelcomeScreen">{{ post.blogPost }}</p>
-        <p v-else class="content-preview">{{ post.blogHtml }}</p>
+        <p v-else class="content-preview" v-html="post.blogHTML"></p>
         <router-link v-if="isWelcomeScreen" to="#" class="link">
           Login/Register
           <arrow class="arrow arrow-light"/>
         </router-link>
-        <router-link v-else to="#" class="link">
+        <router-link v-else :to="{name:'ViewBlog',params:{blogId: post.blogID}}" class="link">
           View The Post
           <arrow class="arrow"/>
         </router-link>
@@ -18,7 +18,7 @@
     </div>
     <div class="blog-photo">
       <img v-if="isWelcomeScreen" :src="require(`../../assets/blogPhotos/${post.photo}.jpg`)" alt="blog-photo"/>
-      <img v-else :src="require(`../../assets/blogPhotos/${post.blogCoverPhoto}.jpg`)" alt="blog-cover-photo"/>
+      <img v-else :src="post.blogCoverPhoto" alt="blog-cover-photo"/>
     </div>
   </div>
 </template>
@@ -161,7 +161,7 @@ a {
   }
 
   .content-preview {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     width: 270px;
     /*max-height: 30px;*/
   }

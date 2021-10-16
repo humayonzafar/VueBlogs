@@ -28,6 +28,9 @@
             <li class="list-item">
               <router-link class="nav-item" :to="{name:'Blogs'}">Blogs</router-link>
             </li>
+            <li class="list-item">
+              <router-link class="nav-item" :to="{name:'CreatePost'}">Create Post</router-link>
+            </li>
             <li v-if="!getUser" class="list-item" >
               <router-link class="nav-item" :to="{name:'Login'}">Login/Register</router-link>
             </li>

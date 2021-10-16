@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <blog-post v-if="!getUser" :post="welcomeScreen" />
-    <blog-post :post="post" v-for="(post,index) in sampleBlogPost" :key="index"/>
+    <blog-post :post="post" v-for="(post,index) in getBlogPostsFeed" :key="index"/>
     <div class="blog-card-wrap">
       <div class="container">
         <h3>View More Recent Blogs</h3>
         <div class="blog-cards">
-          <blog-card :post="post" :showIcons="false" v-for="(post,index) in sampleBlogCards" :key="index"/>
+          <blog-card :post="post" :showIcons="false" v-for="(post,index) in getBlogPostsCards" :key="index"/>
         </div>
       </div>
     </div>
@@ -35,25 +35,14 @@ export default {
         welcomeScreen: true,
         photo: 'coding'
       },
-      sampleBlogPost: [
-        {
-          title: 'This is Filter Title!',
-          blogHtml: 'This is a filter blog post title',
-          blogCoverPhoto: 'beautiful-stories'
-        },
-        {
-          title: 'This is Filter Title!',
-          blogHtml: 'This is a filter blog post title',
-          blogCoverPhoto: 'designed-for-everyone'
-        },
-      ]
+      sampleBlogPost:[]
     }
   },
+  created() {
+    this.$store.dispatch('actionGetPost');
+  },
   computed: {
-    ...mapGetters(['getSampleBlogCards','getUser']),
-    sampleBlogCards () {
-      return this.getSampleBlogCards;
-    }
+    ...mapGetters(['getBlogPostsFeed','getUser','getBlogPostsCards']),
   }
 }
 </script>

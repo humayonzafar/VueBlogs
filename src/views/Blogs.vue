@@ -5,7 +5,7 @@
         <span>Toggle Editing Post</span>
         <input type="checkbox" v-model="editPost">
       </div>
-      <blog-card :post="post" :showIcons="true" v-for="(post,index) in sampleBlogCards" :key="index"/>
+      <blog-card :post="post" :showIcons="true" v-for="(post,index) in getBlogPosts" :key="index"/>
     </div>
   </div>
 </template>
@@ -22,10 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getSampleBlogCards','getEditPost']),
-    sampleBlogCards() {
-      return this.getSampleBlogCards;
-    },
+    ...mapGetters(['getBlogPosts','getEditPost']),
     editPost:{
       get(){
         return this.getEditPost;

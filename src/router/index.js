@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -40,11 +41,29 @@ const routes = [
         meta: {title: 'Profile'}
     },
     {
-        path: "/admin",
-        name: "Admin",
-        component: () => import('../views//Admin'),
-        meta: {title: 'Admin'}
+        path: "/create-post",
+        name: "CreatePost",
+        component: () => import('../views//CreatePost'),
+        meta: {title: 'Create Post'}
     },
+    {
+        path: "/blog-preview",
+        name: "BlogPreview",
+        component: () => import('../views//BlogPreview'),
+        meta: {title: 'Blog Preview'}
+    },
+    {
+        path: "/view-blog/:blogId",
+        name: "ViewBlog",
+        component: () => import('../views//ViewBlog'),
+        meta: {title: 'View Preview'}
+    },
+    {
+        path: "/edit-blog/:blogId",
+        name: "EditBlog",
+        component: () => import('../views//EditBlog'),
+        meta: {title: 'Edit Blog Post'}
+    }
 ];
 
 const router = new VueRouter({

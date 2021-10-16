@@ -1,18 +1,18 @@
 <template>
   <div class="blog-card">
     <div class="icons" v-if="showIcons && editPost">
-      <div class="icon">
-        <edit class="edit"/>
+      <div @click="editBlog" class="icon">
+        <Edit class="edit" />
       </div>
-      <div class="icon">
-        <delete class="delete"/>
+      <div @click="deletePost" class="icon">
+        <Delete class="delete" />
       </div>
     </div>
-    <img :src="require(`../../assets/blogCards/${post.blogCoverPhoto}.jpg`)" alt="blog-cover-photo"/>
+    <img :src="post.blogCoverPhoto" alt="blog-cover-photo"/>
     <div class="info">
       <h4>{{ post.blogTitle }}</h4>
-      <h6>Posted on : {{ post.blogDate }}</h6>
-      <router-link class="link" to="#">
+      <h6>Posted on : {{ new Date(post.blogDate).toLocaleString('en-us', {dateStyle: "long"}) }}</h6>
+      <router-link class="link" :to="{name:'ViewBlog',params:{blogId: post.blogID}}">
         View The Post
         <arrow class="arrow"/>
       </router-link>
@@ -24,7 +24,7 @@
 import Arrow from "../../assets/Icons/arrow-right-light.svg"
 import Edit from "../../assets/Icons/edit-regular.svg"
 import Delete from "../../assets/Icons/trash-regular.svg"
-import {mapGetters} from "vuex";
+import {mapGetters,mapActions} from "vuex";
 
 export default {
   name: "BlogCard",
@@ -39,6 +39,15 @@ export default {
   },
   data() {
     return {}
+  },
+  methods: {
+    ...mapActions(['actionDeletePost']),
+    deletePost() {
+      this.actionDeletePost(this.post.blogID);
+    },
+    editBlog() {
+      this.$router.push({ name: "EditBlog", params: { blogId: this.post.blogID } });
+    },
   },
   computed: {
     ...mapGetters(['getEditPost']),

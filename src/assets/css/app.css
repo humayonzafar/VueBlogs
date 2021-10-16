@@ -47,7 +47,11 @@ a:hover, button:hover {
     color: var(--lightGreen) !important;
     transition: .5s color ease;
 }
-
+.button-inactive {
+    pointer-events: none !important;
+    cursor: none !important;
+    background-color: rgba(128, 128, 128, 0.5) !important;
+}
 .input-error {
     border: 1px solid red;
 }
