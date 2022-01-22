@@ -1,19 +1,18 @@
 <template>
   <div class="home">
-    <blog-post v-if="!getUser" :post="welcomeScreen" />
-    <blog-post :post="post" v-for="(post,index) in getBlogPostsFeed" :key="index"/>
+    <blog-post :post="welcomeScreen" />
     <div class="blog-card-wrap">
       <div class="container">
         <h3>View More Recent Blogs</h3>
         <div class="blog-cards">
-          <blog-card :post="post" :showIcons="false" v-for="(post,index) in getBlogPostsCards" :key="index"/>
+          <blog-card :post="post" :showIcons="false" v-for="(post,index) in getBlogPostsFeed" :key="index"/>
         </div>
       </div>
     </div>
     <div v-if="!getUser" class="updates">
       <div class="container updates-container">
         <h2>Never miss a post. Register your free account today.</h2>
-        <router-link class="router-button" to="#">Register for FireBlogs <arrow class="arrow"/></router-link>
+        <router-link class="router-button" :to="{name: 'Register'}">Register for VueBlogs <arrow class="arrow"/></router-link>
       </div>
     </div>
   </div>
@@ -31,7 +30,7 @@ export default {
     return {
       welcomeScreen: {
         title: 'Welcome!',
-        blogPost: 'MY dummy blog Site for vue js. Just a small practical example of code for vue js and a working github repository',
+        blogPost: 'Welcome to FireBlogs. A sample blog built with Vue js and firebase. It uses vee-validate for validations and allows users the create,update,edit, and delete their posts. And update their user profiles.',
         welcomeScreen: true,
         photo: 'coding'
       },

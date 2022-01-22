@@ -1,6 +1,6 @@
 <template>
   <div class="blog-card">
-    <div class="icons" v-if="showIcons && editPost">
+    <div class="icons" v-if="showIcons && editPost && getBlogBelongsToUser(post)">
       <div @click="editBlog" class="icon">
         <Edit class="edit" />
       </div>
@@ -8,7 +8,7 @@
         <Delete class="delete" />
       </div>
     </div>
-    <img :src="post.blogCoverPhoto" alt="blog-cover-photo"/>
+    <img :src="post.blogCoverPhoto" alt="blog-cover-photo" @click="openBlog"/>
     <div class="info">
       <h4>{{ post.blogTitle }}</h4>
       <h6>Posted on : {{ new Date(post.blogDate).toLocaleString('en-us', {dateStyle: "long"}) }}</h6>
@@ -48,9 +48,12 @@ export default {
     editBlog() {
       this.$router.push({ name: "EditBlog", params: { blogId: this.post.blogID } });
     },
+    openBlog(){
+      this.$router.push({ name:'ViewBlog',params:{blogId: this.post.blogID} });
+    }
   },
   computed: {
-    ...mapGetters(['getEditPost']),
+    ...mapGetters(['getEditPost', 'getBlogBelongsToUser']),
     editPost() {
       return this.getEditPost;
     }
@@ -134,7 +137,7 @@ a:hover {
 img {
   border-radius: 8px 8px 0 0;
   z-index: 1;
-  min-height: 200px;
+  height: 200px;
   object-fit: cover;
 }
 

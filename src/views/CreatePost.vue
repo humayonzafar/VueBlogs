@@ -1,28 +1,31 @@
 <template>
   <div class="create-post">
-    <blog-cover-preview v-show="blogPhotoPreview" />
+    <blog-cover-preview v-show="blogPhotoPreview"/>
     <loading v-if="loading"/>
     <div class="container">
       <div :class="{'invisible': !error}" class="err-message">
-        <p><span>Error</span>{{ errorMsg }}</p>
+        <p><span>Error: </span>{{ errorMsg }}</p>
       </div>
       <div class="blog-info">
         <input type="text" placeholder="Enter Blog Title" v-model="blogTitle"/>
         <div class="upload-file">
           <label for="blog-photo">Upload Cover Photo</label>
-          <input type="file" ref="blogPhoto" id="blog-photo"  @change="fileChange" accept=".png,.jpg,.jpeg"/>
-          <button @click="openPreview" class="preview" :class="{'button-inactive': !photoFileUrl}">Preview Photo</button>
+          <input type="file" ref="blogPhoto" id="blog-photo" @change="fileChange" accept=".png,.jpg,.jpeg"/>
+          <button @click="openPreview" class="preview" :class="{'button-inactive': !photoFileUrl}">Preview Photo
+          </button>
           <span>File Chosen: {{ blogPhotoName }}</span>
         </div>
       </div>
       <div class="editor">
-        <vue-editor :editorOptions="editorSettings" v-model="blogHTML" useCustomImageHandler @image-added="imageHandler"/>
+        <vue-editor :editorOptions="editorSettings" v-model="blogHTML" useCustomImageHandler
+                    @image-added="imageHandler"/>
       </div>
       <div class="blog-actions">
         <button @click="uploadBlog">Publish Blog</button>
         <router-link class="router-button" :to="{ name: 'BlogPreview' }">Post Preview</router-link>
       </div>
     </div>
+    <confirmation-modal :show-modal="showModal" @closeModal="showModal=false" @updateRoute="updateRoute"></confirmation-modal>
   </div>
 </template>
 
@@ -37,21 +40,43 @@ import firebase from "firebase/app";
 import "firebase/storage";
 import db from "../firebase/firestoreInit";
 import Loading from "@/components/Base/Loading";
+import ConfirmationModal from "@/components/Base/ConfirmationModal";
+
 export default {
   name: "CreatePost",
-  components: {Loading, BlogCoverPreview},
+  components: {Loading, BlogCoverPreview,ConfirmationModal},
   data() {
     return {
       error: null,
       errorMsg: null,
       loading: false,
       file: null,
+      showModal: false,
+      routeName: '',
+      allowChangeRoute: false,
       editorSettings: {
         modules: {
           imageResize: {}
         }
       }
     }
+  },
+  created() {
+    window.addEventListener('beforeunload', this.checkDirtyState);
+  },
+  beforeDestroy() {
+    this.$store.commit("mutateBlogHtml", 'Write your blog title here');
+    this.$store.commit("mutateBlogTitle", '');
+    this.file = null;
+    // await window.dispatchEvent(new Event('beforeunload'));
+    window.removeEventListener('beforeunload', this.checkDirtyState);
+  },
+  beforeRouteLeave(to, from, next) {
+    this.showModal = this.checkDirtyState();
+    if (!this.showModal || this.allowChangeRoute) {
+      next();
+    }
+    this.routeName = to.name;
   },
   computed: {
     profileId() {
@@ -82,18 +107,18 @@ export default {
         this.$store.commit("mutateBlogHtml", payload);
       },
     },
-    blogPhotoPreview(){
-        return this.$store.state.blogDefault.photoPreview;
+    blogPhotoPreview() {
+      return this.$store.state.blogDefault.photoPreview;
     }
   },
-  methods:{
+  methods: {
     fileChange() {
       this.file = this.$refs.blogPhoto.files[0];
       const fileName = this.file.name;
       this.$store.commit("mutateFileNameChange", fileName);
       this.$store.commit("mutateCreateFileURL", URL.createObjectURL(this.file));
     },
-    openPreview(){
+    openPreview() {
       this.$store.commit("mutatePhotoPreview");
     },
     imageHandler(file, Editor, cursorLocation, resetUploader) {
@@ -145,7 +170,7 @@ export default {
                 });
                 await this.$store.dispatch("actionGetPost");
                 this.loading = false;
-                this.$router.push({ name: "ViewBlog", params: { blogId: dataBase.id } });
+                this.$router.push({name: "ViewBlog", params: {blogId: dataBase.id}});
               }
           );
           return;
@@ -164,6 +189,18 @@ export default {
       }, 5000);
       return;
     },
+    checkDirtyState(e) {
+      const isStateDirty = !(this.blogTitle === '' && this.blogHTML === '<p>Write your blog title here</p>' && this.file == null);
+      if (typeof e !== "undefined" && isStateDirty) {
+        e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+        e.returnValue = '';  // Chrome requires returnValue to be set
+      }
+      return isStateDirty;
+    },
+    updateRoute(){
+      this.allowChangeRoute = true;
+      this.$router.push({name: this.routeName});
+    }
   }
 }
 </script>

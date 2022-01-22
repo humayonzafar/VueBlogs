@@ -62,6 +62,11 @@ export default {
     });
     this.$store.commit("mutateBlogState", this.currentBlog[0]);
   },
+  beforeDestroy() {
+    this.$store.commit("mutateBlogHtml", 'Write your blog title here');
+    this.$store.commit("mutateBlogTitle", '');
+    this.file = null;
+  },
   computed: {
     profileId() {
       return this.$store.state.profile.id;

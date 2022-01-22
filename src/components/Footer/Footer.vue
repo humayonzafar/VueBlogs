@@ -6,19 +6,6 @@
           <div class="footer__logo">
             <router-link class="footer-logo" :to="{name:'Home'}">VueBlogs</router-link>
           </div>
-          <div class="footer-links">
-            <ul class="social-icons-list">
-              <li><a href="#">
-                <linkedin class="social-icons"/>
-              </a></li>
-              <li><a href="#">
-                <github class="social-icons"/>
-              </a></li>
-              <li><a href="#">
-                <instagram class="social-icons"/>
-              </a></li>
-            </ul>
-          </div>
         </div>
         <div class="footer__social_icons">
           <ul class="footer-nav-list">
@@ -72,6 +59,7 @@ export default {
 footer {
   background-color: var(--darkGrey);
   padding: 1em;
+  margin-top: 1rem;
 }
 
 .footer-logo {

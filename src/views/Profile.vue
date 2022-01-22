@@ -7,7 +7,7 @@
         <div class="initials">{{ getProfile.initials }}</div>
         <div class="admin-badge">
           <adminIcon class="icon"/>
-          <span>admin</span>
+          <span>User</span>
         </div>
         <div class="input">
           <label for="first_name">First Name:</label>

@@ -6,10 +6,12 @@
         <h2 v-else>{{ post.blogTitle }}</h2>
         <p v-if="isWelcomeScreen">{{ post.blogPost }}</p>
         <p v-else class="content-preview" v-html="post.blogHTML"></p>
-        <router-link v-if="isWelcomeScreen" to="#" class="link">
-          Login/Register
-          <arrow class="arrow arrow-light"/>
-        </router-link>
+        <div v-if="isWelcomeScreen">
+          <router-link v-if="!getUser" :to="{name: 'Login'}" class="link">
+            Login/Register
+            <arrow class="arrow arrow-light"/>
+          </router-link>
+        </div>
         <router-link v-else :to="{name:'ViewBlog',params:{blogId: post.blogID}}" class="link">
           View The Post
           <arrow class="arrow"/>
@@ -47,6 +49,7 @@ export default {
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /*overflow: hidden;*/
 }
 
 .blog-content {

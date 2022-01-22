@@ -11,7 +11,7 @@
         <li class="list-item">
           <router-link class="nav-item" :to="{name:'Blogs'}">Blogs</router-link>
         </li>
-        <li class="list-item">
+        <li class="list-item" v-if="getUser">
           <router-link class="nav-item" :to="{name:'CreatePost'}">Create Post</router-link>
         </li>
         <li v-if="!getUser" class="list-item">
@@ -34,12 +34,6 @@
                   <router-link class="option" :to="{name:'Profile'}">
                     <user-icon class="icon"/>
                     <p>Profile</p>
-                  </router-link>
-                </div>
-                <div class="option">
-                  <router-link class="option" :to="{name:'Admin'}">
-                    <admin-icon class="icon"/>
-                    <p>Admin</p>
                   </router-link>
                 </div>
                 <div @click='signOut' class="option sign-out">

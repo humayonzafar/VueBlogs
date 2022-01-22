@@ -21,7 +21,6 @@ export default {
   position: fixed;
   justify-content: center;
   align-items: center;
-  animation-duration: 3s;
   animation-name: spin;
 }
 @keyframes spin {

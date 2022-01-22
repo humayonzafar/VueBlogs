@@ -89,7 +89,8 @@ export default new Vuex.Store({
         getBlogPosts: state => state.blogPosts,
         getPostLoaded: state => state.postLoaded,
         getBlogPostsFeed: state => state.blogPosts.slice(0, 2),
-        getBlogPostsCards: state => state.blogPosts.slice(2, 6)
+        getBlogPostsCards: state => state.blogPosts.slice(2, 6),
+        getBlogBelongsToUser: state => (blog)=> blog.profileId===state.profile.id
     },
     actions: {
         actionUpdateEditPost({commit}, updatedValue) {
@@ -126,6 +127,7 @@ export default new Vuex.Store({
                         blogTitle: doc.data().blogTitle,
                         blogDate: doc.data().date,
                         blogCoverPhotoName: doc.data().blogCoverPhotoName,
+                        profileId: doc.data().profileId,
                     };
                     state.blogPosts.push(data);
                 }
