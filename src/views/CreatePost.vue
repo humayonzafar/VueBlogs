@@ -1,6 +1,7 @@
 <template>
   <div class="create-post">
     <blog-cover-preview v-show="blogPhotoPreview"/>
+    <blog-preview :showModal="showPreview" @close="showPreview=false" :blogHTML="blogHTML" :blogTitle="blogTitle" :blogCoverPhoto="photoFileUrl"/>
     <loading v-if="loading"/>
     <div class="container">
       <div :class="{'invisible': !error}" class="err-message">
@@ -22,7 +23,7 @@
       </div>
       <div class="blog-actions">
         <button @click="uploadBlog">Publish Blog</button>
-        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Post Preview</router-link>
+        <button class="router-button" @click="previewChanges">Preview Changes</button>
       </div>
     </div>
     <confirmation-modal :show-modal="showModal" @closeModal="showModal=false" @updateRoute="updateRoute"></confirmation-modal>
@@ -41,10 +42,11 @@ import "firebase/storage";
 import db from "../firebase/firestoreInit";
 import Loading from "@/components/Base/Loading";
 import ConfirmationModal from "@/components/Base/ConfirmationModal";
+import BlogPreview from "@/components/Blog/BlogPreview";
 
 export default {
   name: "CreatePost",
-  components: {Loading, BlogCoverPreview,ConfirmationModal},
+  components: {BlogPreview, Loading, BlogCoverPreview,ConfirmationModal},
   data() {
     return {
       error: null,
@@ -52,6 +54,7 @@ export default {
       loading: false,
       file: null,
       showModal: false,
+      showPreview: false,
       routeName: '',
       allowChangeRoute: false,
       editorSettings: {
@@ -62,19 +65,21 @@ export default {
     }
   },
   created() {
+    this.$store.commit("mutateSetDefaultBoothState");
     window.addEventListener('beforeunload', this.checkDirtyState);
   },
   beforeDestroy() {
-    this.$store.commit("mutateBlogHtml", 'Write your blog title here');
-    this.$store.commit("mutateBlogTitle", '');
     this.file = null;
-    // await window.dispatchEvent(new Event('beforeunload'));
     window.removeEventListener('beforeunload', this.checkDirtyState);
   },
-  beforeRouteLeave(to, from, next) {
-    this.showModal = this.checkDirtyState();
-    if (!this.showModal || this.allowChangeRoute) {
+ async beforeRouteLeave(to, from, next) {
+    const show = this.checkDirtyState();
+    if (!show || this.allowChangeRoute) {
+      this.$store.commit("mutateSetDefaultBoothState");
       next();
+    }
+    else{
+      this.showModal = show;
     }
     this.routeName = to.name;
   },
@@ -170,6 +175,7 @@ export default {
                 });
                 await this.$store.dispatch("actionGetPost");
                 this.loading = false;
+                this.allowChangeRoute = true;
                 this.$router.push({name: "ViewBlog", params: {blogId: dataBase.id}});
               }
           );
@@ -200,6 +206,14 @@ export default {
     updateRoute(){
       this.allowChangeRoute = true;
       this.$router.push({name: this.routeName});
+    },
+    async previewChanges() {
+      await this.$store.commit("mutateBlogPreview", {
+        title: this.blogTitle,
+        html: this.blogHTML,
+        photoFileUrl: this.photoFileUrl
+      });
+      this.showPreview = true;
     }
   }
 }
@@ -271,6 +285,8 @@ export default {
   .blog-info {
     display: flex;
     margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 15px;
 
     input:nth-child(1) {
       min-width: 300px;
@@ -337,7 +353,9 @@ export default {
 
   .blog-actions {
     margin-top: 32px;
-
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
     button {
       margin-right: 16px;
     }

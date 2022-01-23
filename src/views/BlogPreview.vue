@@ -1,8 +1,9 @@
 <template>
   <div class="post-view">
     <div class="container quillWrapper">
+      <p @click="goBack" class="go-back"> <span>←</span> Go Back </p>
       <h2>{{ blogTitle }}</h2>
-      <img :src="blogCoverPhoto" alt="" />
+      <img :src="blogCoverPhoto" alt="cover" />
       <div class="post-content ql-editor" v-html="blogHTML"></div>
     </div>
   </div>
@@ -13,15 +14,20 @@ export default {
   name: "PostPreview",
   computed: {
     blogTitle() {
-      return this.$store.state.blogDefault.title;
+      return this.$store.state.blogPreview.title;
     },
     blogHTML() {
-      return this.$store.state.blogDefault.html;
+      return this.$store.state.blogPreview.html;
     },
     blogCoverPhoto() {
-      return this.$store.state.blogDefault.photoFileUrl;
+      return this.$store.state.blogPreview.photoFileUrl;
     },
   },
+  methods:{
+    goBack(){
+      this.$router.go(-1);
+    }
+  }
 };
 </script>
 
@@ -47,6 +53,14 @@ export default {
   img {
     width: 100%;
     margin-bottom: 32px;
+  }
+  .go-back{
+    cursor: pointer;
+    color: blue;
+    font-size: 14px;
+  }
+  .go-back span{
+    font-size: 20px;
   }
 }
 </style>

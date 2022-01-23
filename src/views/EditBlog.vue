@@ -1,6 +1,6 @@
 <template>
   <div class="create-post">
-    <blog-cover-preview v-show="blogPhotoPreview" />
+    <blog-cover-preview v-show="blogPhotoPreview"/>
     <loading v-if="loading"/>
     <div class="container">
       <div :class="{'invisible': !error}" class="err-message">
@@ -10,17 +10,19 @@
         <input type="text" placeholder="Enter Blog Title" v-model="blogTitle"/>
         <div class="upload-file">
           <label for="blog-photo">Upload Cover Photo</label>
-          <input type="file" ref="blogPhoto" id="blog-photo"  @change="fileChange" accept=".png,.jpg,.jpeg"/>
-          <button @click="openPreview" class="preview" :class="{'button-inactive': !photoFileUrl}">Preview Photo</button>
+          <input type="file" ref="blogPhoto" id="blog-photo" @change="fileChange" accept=".png,.jpg,.jpeg"/>
+          <button @click="openPreview" class="preview" :class="{'button-inactive': !photoFileUrl}">Preview Photo
+          </button>
           <span>File Chosen: {{ blogPhotoName }}</span>
         </div>
       </div>
       <div class="editor">
-        <vue-editor :editorOptions="editorSettings" v-model="blogHTML" useCustomImageHandler @image-added="imageHandler"/>
+        <vue-editor :editorOptions="editorSettings" v-model="blogHTML" useCustomImageHandler
+                    @image-added="imageHandler"/>
       </div>
       <div class="blog-actions">
         <button @click="updateBlog">Save Blog</button>
-        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Preview Changes</router-link>
+        <button class="router-button" @click="previewChanges">Preview Changes</button>
       </div>
     </div>
   </div>
@@ -37,6 +39,7 @@ import firebase from "firebase/app";
 import "firebase/storage";
 import db from "../firebase/firestoreInit";
 import Loading from "@/components/Base/Loading";
+
 export default {
   name: "CreatePost",
   components: {Loading, BlogCoverPreview},
@@ -46,8 +49,8 @@ export default {
       errorMsg: null,
       loading: false,
       file: null,
-      routeId:null,
-      currentBlog:null,
+      routeId: null,
+      currentBlog: null,
       editorSettings: {
         modules: {
           imageResize: {}
@@ -63,8 +66,6 @@ export default {
     this.$store.commit("mutateBlogState", this.currentBlog[0]);
   },
   beforeDestroy() {
-    this.$store.commit("mutateBlogHtml", 'Write your blog title here');
-    this.$store.commit("mutateBlogTitle", '');
     this.file = null;
   },
   computed: {
@@ -96,18 +97,18 @@ export default {
         this.$store.commit("mutateBlogHtml", payload);
       },
     },
-    blogPhotoPreview(){
+    blogPhotoPreview() {
       return this.$store.state.blogDefault.photoPreview;
     }
   },
-  methods:{
+  methods: {
     fileChange() {
       this.file = this.$refs.blogPhoto.files[0];
       const fileName = this.file.name;
       this.$store.commit("mutateFileNameChange", fileName);
       this.$store.commit("mutateCreateFileURL", URL.createObjectURL(this.file));
     },
-    openPreview(){
+    openPreview() {
       this.$store.commit("mutatePhotoPreview");
     },
     imageHandler(file, Editor, cursorLocation, resetUploader) {
@@ -155,7 +156,7 @@ export default {
                 });
                 await this.$store.dispatch("actionUpdatePost", this.routeID);
                 this.loading = false;
-                this.$router.push({ name: "ViewBlog", params: { blogId: dataBase.id } });
+                this.$router.push({name: "ViewBlog", params: {blogId: dataBase.id}});
               }
           );
           return;
@@ -167,7 +168,7 @@ export default {
         });
         await this.$store.dispatch("actionUpdatePost", this.routeID);
         this.loading = false;
-        this.$router.push({ name: "ViewBlog", params: { blogId: dataBase.id } });
+        this.$router.push({name: "ViewBlog", params: {blogId: dataBase.id}});
         return;
       }
       this.error = true;
@@ -177,6 +178,16 @@ export default {
       }, 5000);
       return;
     },
+    async previewChanges() {
+      console.log(this.blogTitle,'this.blogTitle');
+      const payload = {
+        title: this.blogTitle,
+        html: this.blogHTML,
+        photoFileUrl: this.photoFileUrl
+      };
+      await this.$store.commit("mutateBlogPreview", payload);
+      this.$router.push({name: "BlogPreview"});
+    }
   }
 }
 </script>
@@ -247,6 +258,8 @@ export default {
   .blog-info {
     display: flex;
     margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 15px;
 
     input:nth-child(1) {
       min-width: 300px;
@@ -313,7 +326,9 @@ export default {
 
   .blog-actions {
     margin-top: 32px;
-
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
     button {
       margin-right: 16px;
     }

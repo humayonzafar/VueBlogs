@@ -29,7 +29,12 @@ export default new Vuex.Store({
             photoFileUrl: "",
             photoPreview: "",
         },
-        blogPosts:[],
+        blogPreview: {
+            html: "Write your blog title here",
+            title: "",
+            photoFileUrl: "",
+        },
+        blogPosts: [],
         postLoaded: null,
         editPost: false,
         user: null
@@ -70,7 +75,7 @@ export default new Vuex.Store({
         mutatePhotoPreview(state) {
             state.blogDefault.photoPreview = !state.blogDefault.photoPreview;
         },
-        mutateFilterBlogPost(state,payload){
+        mutateFilterBlogPost(state, payload) {
             state.blogPosts = state.blogPosts.filter((post) => post.blogID !== payload);
         },
         mutateBlogState(state, payload) {
@@ -79,6 +84,20 @@ export default new Vuex.Store({
             state.blogDefault.photoFileUrl = payload.blogCoverPhoto;
             state.blogDefault.photoName = payload.blogCoverPhotoName;
         },
+        mutateBlogPreview(state, payload) {
+            state.blogPreview.title = payload.title;
+            state.blogPreview.html = payload.html;
+            state.blogPreview.photoFileUrl = payload.photoFileUrl;
+        },
+        mutateSetDefaultBoothState(state) {
+            state.blogDefault = {
+                html: "Write your blog title here",
+                title: "",
+                photoName: "",
+                photoFileUrl: "",
+                photoPreview: ""
+            }
+        }
     },
     getters: {
         getSampleBlogCards: state => state.sampleBlogCards,
@@ -88,9 +107,10 @@ export default new Vuex.Store({
         getBlogDefault: state => state.blogDefault,
         getBlogPosts: state => state.blogPosts,
         getPostLoaded: state => state.postLoaded,
+        getBlogPreview: state => state.blogPreview,
         getBlogPostsFeed: state => state.blogPosts.slice(0, 2),
         getBlogPostsCards: state => state.blogPosts.slice(2, 6),
-        getBlogBelongsToUser: state => (blog)=> blog.profileId===state.profile.id
+        getBlogBelongsToUser: state => (blog) => blog.profileId === state.profile.id
     },
     actions: {
         actionUpdateEditPost({commit}, updatedValue) {
@@ -115,7 +135,7 @@ export default new Vuex.Store({
             commit('mutateUserProfile', payload);
             commit('mutateProfileInitials');
         },
-        async actionGetPost({ state }) {
+        async actionGetPost({state}) {
             const dataBase = await db.collection("blogPosts").orderBy("date", "desc");
             const dbResults = await dataBase.get();
             dbResults.forEach((doc) => {
@@ -134,7 +154,7 @@ export default new Vuex.Store({
             });
             state.postLoaded = true;
         },
-        async updateUserSettings({ commit, state }) {
+        async updateUserSettings({commit, state}) {
             const dataBase = await db.collection("users").doc(state.profileId);
             await dataBase.update({
                 firstName: state.profileFirstName,
@@ -143,12 +163,12 @@ export default new Vuex.Store({
             });
             commit("setProfileInitials");
         },
-        async actionDeletePost({commit},payload){
+        async actionDeletePost({commit}, payload) {
             const getPost = await db.collection("blogPosts").doc(payload);
             await getPost.delete();
             commit("mutateFilterBlogPost", payload);
         },
-        async actionUpdatePost({ commit, dispatch }, payload) {
+        async actionUpdatePost({commit, dispatch}, payload) {
             commit("mutateFilterBlogPost", payload);
             await dispatch("actionGetPost");
         },
