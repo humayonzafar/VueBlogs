@@ -22,7 +22,6 @@
       </div>
       <div class="blog-actions">
         <button @click="updateBlog">Save Blog</button>
-        <button class="router-button" @click="previewChanges">Preview Changes</button>
       </div>
     </div>
   </div>
@@ -179,7 +178,6 @@ export default {
       return;
     },
     async previewChanges() {
-      console.log(this.blogTitle,'this.blogTitle');
       const payload = {
         title: this.blogTitle,
         html: this.blogHTML,
